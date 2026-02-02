@@ -1,0 +1,166 @@
+<section id="add-property" class="mb-12">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Add New Property</h2>
+  <form
+    id="property-form"
+    class="bg-white p-8 rounded-lg shadow-md"
+    (submit)="addProperty($event)"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="province" class="block text-gray-700 font-bold mb-2">Province</label>
+        <select
+          id="province"
+          [formField]="provinceIdField"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+        >
+          <option value="0">Select a province</option>
+          @for (province of provincesResource.value().provinces; track province.id) {
+            <option [value]="province.id">{{ province.name }}</option>
+          }
+        </select>
+        @for (error of provinceIdField().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+      </div>
+      <div>
+        <label for="town" class="block text-gray-700 font-bold mb-2">Town</label>
+        <select
+          id="town"
+          [formField]="newPropertyForm.townId"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+        >
+          <option value="0">Select a town</option>
+          @for (towns of townsResource.value().towns; track towns.id) {
+            <option [value]="towns.id">{{ towns.name }}</option>
+          }
+        </select>
+        @for (error of newPropertyForm.townId().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+      </div>
+    </div>
+    <div class="mt-6">
+      <label for="address" class="block text-gray-700 font-bold mb-2">Address</label>
+      <input
+        type="text"
+        id="address"
+        [formField]="newPropertyForm.address"
+        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      @for (error of newPropertyForm.address().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+    </div>
+    <div class="mt-6">
+      <label for="title" class="block text-gray-700 font-bold mb-2">Listing Title</label>
+      <input
+        type="text"
+        id="title"
+        [formField]="newPropertyForm.title"
+        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      @for (error of newPropertyForm.title().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+    </div>
+    <div class="mt-6">
+      <label for="description" class="block text-gray-700 font-bold mb-2">Description</label>
+      <textarea
+        type="text"
+        id="description"
+        [formField]="newPropertyForm.description"
+        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      ></textarea>
+      @for (error of newPropertyForm.description().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+      <div>
+        <label for="sqmeters" class="block text-gray-700 font-bold mb-2">Square Meters</label>
+        <input
+          type="number"
+          id="sqmeters"
+          [formField]="newPropertyForm.sqmeters"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (error of newPropertyForm.sqmeters().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+      </div>
+      <div>
+        <label for="numRooms" class="block text-gray-700 font-bold mb-2">Number of Rooms</label>
+        <input
+          type="number"
+          id="numRooms"
+          [formField]="newPropertyForm.numRooms"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (error of newPropertyForm.numRooms().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+      </div>
+      <div>
+        <label for="numBaths" class="block text-gray-700 font-bold mb-2">Number of Baths</label>
+        <input
+          type="number"
+          id="numBaths"
+          [formField]="newPropertyForm.numBaths"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (error of newPropertyForm.numBaths().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <div>
+        <label for="price" class="block text-gray-700 font-bold mb-2">Price (€)</label>
+        <input
+          type="number"
+          id="price"
+          [formField]="newPropertyForm.price"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (error of newPropertyForm.price().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+      </div>
+      <div>
+        <label for="mainPhoto" class="block text-gray-700 font-bold mb-2">Main Photo</label>
+        <input
+          type="file"
+          id="mainPhoto"
+          accept="image/*"
+          encodeBase64
+          (encoded)="newPropertyForm.mainPhoto().setControlValue($event)"
+          [formField]="imageField"
+          class="w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+        />
+        @for (error of imageField().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
+        <!-- Contenedor para la previsualización de la imagen -->
+        @if (newProperty().mainPhoto) {
+          <div class="mt-4">
+            <img
+              id="image-preview"
+              [src]="newProperty().mainPhoto"
+              alt=""
+              class="w-full h-48 object-cover rounded-lg"
+            />
+          </div>
+        }
+      </div>
+    </div>
+    <div class="mt-8">
+      <button
+        type="submit"
+        [disabled]="newPropertyForm().invalid()"
+        class="w-full bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-slate-400"
+      >
+        Add Property
+      </button>
+    </div>
+  </form>
+</section>

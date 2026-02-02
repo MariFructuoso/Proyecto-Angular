@@ -1,0 +1,43 @@
+<section>
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Properties for Sale</h2>
+  <section id="search-and-filter" class="mb-6">
+    <form id="search-form" class="bg-white p-6 rounded-lg shadow-md">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+        <div class="md:col-span-2 lg:col-span-2">
+          <label for="search-text" class="block text-gray-700 font-bold mb-2">Search</label>
+          <input
+            type="text"
+            [formField]="searchField"
+            id="search-text"
+            placeholder="Piso en el centro, chalet con piscina..."
+            class="no-validation w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label for="province-filter" class="block text-gray-700 font-bold mb-2">Province</label>
+          <select
+            id="province-filter"
+            [formField]="provinceField"
+            class="no-validation w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          >
+            <option value="">Select a province</option>
+            @for (province of provincesResource.value().provinces; track province.id) {
+              <option [value]="province.id">{{ province.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="md:col-span-2 lg:col-span-2">
+          <span class="text-gray-600 text-sm p-2 mb-4">Searched by: {{ filtrado() }}</span>
+        </div>
+      </div>
+    </form>
+  </section>
+  <div id="property-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    @for (property of propertiesFilter(); track property.id) {
+      <property-card [property]="property" (deleted)="deleteProperty(property)"></property-card>
+    } @empty {
+      <p class="text-red-700">There's no property to show</p>
+    }
+  </div>
+</section>

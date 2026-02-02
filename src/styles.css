@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+:is(input, textarea, select):not(.no-validation) {
+    @apply border rounded-md;
+
+    &.ng-touched.ng-invalid {
+        @apply border-red-700 ring-red-600/30;
+    }
+
+    &.ng-touched.ng-valid {
+        @apply border-green-700 ring-green-700/30;
+    }
+
+    &:not(.ng-touched.ng-invalid)~.error-msg {
+        @apply hidden;
+    }
+}

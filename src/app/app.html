@@ -1,0 +1,17 @@
+<header class="bg-white shadow fixed h-16 flex items-center w-full z-10">
+  <div class="container mx-auto px-4 flex gap-4 justify-between items-center">
+    <div class="flex items-baseline gap-3">
+      <a class="text-3xl font-bold text-gray-800" [routerLink]="['/properties']">{{ title() }}</a>
+      <p class="text-gray-600 hidden lg:block">Find your dream home</p>
+    </div>
+<top-menu></top-menu>
+</div></header>
+<main class="container mx-auto px-4 py-8 mt-16 grow flex flex-col">
+  <router-outlet></router-outlet>
+</main>
+
+  <footer class="bg-white bottom-0 w-full mt-12">
+    <div class="container mx-auto px-4 py-6 text-center text-gray-600">
+      <p>&copy; 2025 InmoSanvi. All rights reserved.</p>
+    </div>
+  </footer>

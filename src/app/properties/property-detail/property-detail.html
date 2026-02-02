@@ -1,0 +1,9 @@
+@if (propertyResource.hasValue()) {
+  <property-card [property]="property()!" (deleted)="goBack()"></property-card>
+} @else {
+  <p>Loading property data....</p>
+}
+
+<div class="mt-6">
+  <a class="bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" [routerLink]="['/properties']">Go back</a>
+</div>
