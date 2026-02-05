@@ -1,5 +1,5 @@
 
-<main class="container mx-auto px-4 py-8 mt-16 flex-grow flex items-center justify-center">
+<main class="container mx-auto px-4 py-8 mt-16 grow flex items-center justify-center">
     <div class="w-full max-w-lg">
       <form id="register-form" class="bg-white p-8 rounded-lg shadow-md">
         <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Create an account</h2>
@@ -7,36 +7,69 @@
         <!-- Campo de Nombre -->
         <div class="mb-6">
           <label for="name" class="block text-gray-700 font-bold mb-2">Full name</label>
-          <input type="text" id="name" name="nameUser" required class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: Ana García">
+          <input type="text" id="name" [formField]="newRegisterForm.name" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: Ana García">
+          @for (error of newRegisterForm.name().errors(); track error.kind) {
+              <div class="invalid-feedback">{{ error.message }}</div>
+            }
         </div>
 
-        <!-- Campo de Email -->
+        <!-- Campos de Email -->
         <div class="mb-6">
           <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-          <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="tu.email@ejemplo.com">
+          <input type="email" id="email" [formField]="newRegisterForm.email" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="tu.email@ejemplo.com">
+        @for (error of newRegisterForm.email().errors(); track error.kind) {
+              <div class="invalid-feedback">{{ error.message }}</div>
+            }
+        </div>
+        <div class="mb-6">
+          <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+          <input type="email" id="email" [formField]="newRegisterForm.emailConfirm" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="tu.email@ejemplo.com">
+          @for (error of newRegisterForm.emailConfirm().errors(); track error.kind) {
+              <div class="invalid-feedback">{{ error.message }}</div>
+            }
         </div>
 
         <!-- Campos de Contraseña -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
             <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
-            <input type="password" id="password" name="password" required minlength="4" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+            <input type="password" id="password" [formField]="newRegisterForm.password" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+            @for (error of newRegisterForm.password().errors(); track error.kind) {
+              <div class="invalid-feedback">{{ error.message }}</div>
+            }
           </div>
           <div>
             <label for="password-confirm" class="block text-gray-700 font-bold mb-2">Repeat Password</label>
-            <input type="password" id="password-confirm" name="passwordConfirm" required class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+            <input type="password" id="password-confirm" [formField]="newRegisterForm.passwordConfirm" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+            @for (error of newRegisterForm.passwordConfirm().errors(); track error.kind) {
+              <div class="invalid-feedback">{{ error.message }}</div>
+            }
           </div>
         </div>
         
         <!-- Campo de Avatar -->
         <div class="mb-8">
           <label for="avatar" class="block text-gray-700 font-bold mb-2">Avatar</label>
-          <input type="file" id="avatar" name="avatar" accept="image/*" class="w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+          <input 
+          type="file" 
+          id="avatar" 
+          [formField]="avatarControl"
+          encodeBase64
+          (encoded)="newRegisterForm.avatar().setControlValue($event)" 
+          accept="image/*" 
+          class="w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+          >
+          
+          @for (error of avatarControl().errors(); track error.kind) {
+          <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
+        }
           <!-- Contenedor para la previsualización de la imagen -->
+          @if (newRegister().avatar) {
           <div class="mt-4">
-            <img id="avatar-preview" src="" alt="Previsualización del avatar" class="w-24 h-24 object-cover rounded-full mx-auto hidden">
+            <img [src]="newRegister().avatar" alt="Avatar preview" class="w-24 h-24 object-cover rounded-full">
           </div>
-        </div>
+          }
+      </div>
 
         <!-- Botón de Envío -->
         <div>
