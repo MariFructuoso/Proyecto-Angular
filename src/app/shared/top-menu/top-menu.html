@@ -1,34 +1,40 @@
+<nav class="flex gap-3 items-center">
+  <a class="font-semibold text-gray-600 hover:text-gray-900" [routerLink]="['/properties']"
+    [routerLinkActive]="['font-semibold', 'text-blue-600']" [routerLinkActiveOptions]="{ exact: true }">
+    Home
+  </a>
 
-    <nav class="flex gap-3">
-      <a
-        class="font-semibold text-gray-600 hover:text-gray-900"
-        [routerLink]="['/properties']"
-        [routerLinkActive]="['font-semibold']"
-        [routerLinkActiveOptions]="{ exact: true }"
-        >Home</a
-      >
-      <a
-        class="text-gray-600 hover:text-gray-900"
-        [routerLink]="['/properties/add']"
-        [routerLinkActive]="['font-semibold']"
-        >New Property</a
-      >
-      <a class="text-gray-600 hover:text-gray-900" [routerLink]="['/login']"
-        [routerLinkActive]="['font-semibold']" title="login" id="login-link">
-          <svg class="icon" width="24" height="24">
-            <use href="icons/login.svg#login"></use>
-          </svg>
-        </a>
-        <a class="text-gray-600 hover:text-gray-900 hidden" [routerLink]="['/login']"
-        [routerLinkActive]="['font-semibold']" title="profile" id="profile-link">
-          <svg class="icon" width="24" height="24">
-            <use href="icons/profile.svg#profile"></use>
-          </svg>
-        </a>
-        <a class="text-gray-600 hover:text-gray-900 hidden" [routerLink]="['/login']"
-        [routerLinkActive]="['font-semibold']" title="logout" id="logout-link">
-          <svg class="icon" width="24" height="24">
-            <use href="icons/logout.svg#logout"></use>
-          </svg>
-        </a>        
-    </nav>
+  @if (logged()) {
+  <a class="text-gray-600 hover:text-gray-900" [routerLink]="['/properties/add']"
+    [routerLinkActive]="['font-semibold', 'text-blue-600']">
+    New Property
+  </a>
+
+  <a class="text-gray-600 hover:text-gray-900" [routerLink]="['/profile']" [routerLinkActive]="['text-blue-600']"
+    title="Profile">
+    <svg class="icon" width="24" height="24">
+      <use href="icons/profile.svg#profile"></use>
+    </svg>
+  </a>
+
+  <button (click)="logout()" class="text-gray-600 hover:text-red-600 cursor-pointer" title="Logout">
+    <svg class="icon" width="24" height="24">
+      <use href="icons/logout.svg#logout"></use>
+    </svg>
+  </button>
+  }
+
+  @else {
+  <a class="text-gray-600 hover:text-blue-600" [routerLink]="['/auth/login']" [routerLinkActive]="['text-blue-600']"
+    title="Login">
+    <svg class="icon" width="24" height="24">
+      <use href="icons/login.svg#login"></use>
+    </svg>
+  </a>
+
+  <a [routerLink]="['/auth/register']"
+    class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition font-medium">
+    Sign Up
+  </a>
+  }
+</nav>
