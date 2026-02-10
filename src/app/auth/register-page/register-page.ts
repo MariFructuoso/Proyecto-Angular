@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal} from '@angular/core';
 import { Router } from '@angular/router';
 import { email, form, FormField, minLength, required, validate } from "@angular/forms/signals";
-import { EncodeBase64Directive } from '../../shared/directives/encode-base64-directive'; // ¡Asegúrate de tener esto!
+import { EncodeBase64Directive } from '../../shared/directives/encode-base64-directive'; 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AuthService } from '../../services/auth-service'; // <--- CORRECCIÓN 1
-import { UserRegister } from '../../auth/interface/user'; // <--- CORRECCIÓN 1 (Ajusta la ruta si es necesario)
+import { AuthService } from '../../services/auth-service'; 
+import { UserRegister } from '../../auth/interface/user'; 
 
 @Component({
   selector: 'register-page',
@@ -42,9 +42,9 @@ export class RegisterPage {
     email(schema.emailConfirm,{message: 'Format invalid'})
     minLength(schema.password, 4, {message: 'Password must be greater than 4'})
     minLength(schema.passwordConfirm, 4, {message: 'Password must be greater than 4'})
-    //validar contraseñas coinciden
+
     validate(schema.passwordConfirm, ({value, valueOf}) => {
-      const password = valueOf(schema.password);// Creamos dependencia con este valor
+      const password = valueOf(schema.password);
       if(value() !== password) {
         return {
           kind: 'samePassword',
@@ -53,7 +53,6 @@ export class RegisterPage {
       }
       return null;
     })
-    //Validar emails coinciden
     validate(schema.emailConfirm, ({value, valueOf}) => {
       const email = valueOf(schema.email);
       if(value() !== email) {
@@ -66,7 +65,6 @@ export class RegisterPage {
     })
   });
 
-  //Validad que sea una imagen
     avatarControl = form(signal(''), field => {
     required(field, { message: 'You must choose an image file' });
   });

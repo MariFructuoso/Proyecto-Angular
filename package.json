@@ -39,6 +39,8 @@
     "@angular/build": "^21.1.2",
     "@angular/cli": "^21.1.2",
     "@angular/compiler-cli": "^21.1.2",
+    "@types/facebook-js-sdk": "^3.3.12",
+    "@types/google.accounts": "^0.0.18",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "21.1.0",
     "eslint": "^9.38.0",

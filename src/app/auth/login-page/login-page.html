@@ -1,45 +1,41 @@
 <div class="w-full max-w-xl">
   <form class="bg-white p-8 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Log in</h2>
-    
+
     <div class="mb-6">
       <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-      <input 
-        type="email" 
-        id="email" 
-        [formField]="loginForm.email"
-        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-        placeholder="tu.email@ejemplo.com"
-      >
-        @for (error of loginForm.email().errors(); track error.kind) {
-          <div class="error-msg text-red-500 text-sm mt-1">{{ error.message }}</div>
+      <input type="email" id="email" [formField]="loginForm.email"
+        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="tu.email@ejemplo.com">
+      @for (error of loginForm.email().errors(); track error.kind) {
+      <div class="error-msg text-red-500 text-sm mt-1">{{ error.message }}</div>
       }
     </div>
 
     <div class="mb-6">
       <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
-      <input 
-        type="password" 
-        id="password" 
-        [formField]="loginForm.password"
-        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-        placeholder="••••••••"
-      >
-        @for (error of loginForm.password().errors(); track error.kind) {
-          <div class="error-msg text-red-500 text-sm mt-1">{{ error.message }}</div>
-        }
+      <input type="password" id="password" [formField]="loginForm.password"
+        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="••••••••">
+      @for (error of loginForm.password().errors(); track error.kind) {
+      <div class="error-msg text-red-500 text-sm mt-1">{{ error.message }}</div>
+      }
     </div>
 
     <div>
-      <button 
-        (click)="login($event)" 
-        type="submit" 
-        [disabled]="loginForm().invalid()"
-        class="w-full bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-slate-400 disabled:cursor-not-allowed"
-      >
+      <button (click)="login($event)" type="submit" [disabled]="loginForm().invalid()"
+        class="w-full bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-slate-400 disabled:cursor-not-allowed">
         Login
       </button>
     </div>
+
+    <div class="flex justify-center p-4">
+      <div googleLogin class="w-full max-w-72" (login)="loggedGoogle($event)"></div>
+    </div>
+    <button fbLogin [scopes]="['email', 'public_profile']" class="btn btn-primary" (loginOk)="loggedFacebook($event)"
+      (loginError)="showError($event)">
+      Login con Facebook
+    </button>
 
     <div class="mt-6 text-center">
       <p class="text-sm text-gray-600">

@@ -5,11 +5,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AuthService } from '../../services/auth-service'; 
 import { UserLogin } from '../interface/user'; 
+import { GoogleLogin } from '../google-login/google-login';
+import { FbLogin } from '../fb-login/fb-login'; 
 
 @Component({
   selector: 'login-page',
   standalone: true,
-  imports: [FormField, RouterLink], 
+  imports: [FormField, RouterLink, GoogleLogin, FbLogin], 
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,6 +35,43 @@ export class LoginPage {
     email(schema.email, { message: 'Invalid email format' });
   });
 
+  // --- GOOGLE ---
+  loggedGoogle(resp: google.accounts.id.CredentialResponse) {
+    this.#authService.loginGoogle(resp.credential)
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe({
+        next: () => {
+          console.log('Login con Google correcto');
+          this.#router.navigate(['/properties']);
+        },
+        error: (err) => console.error('Error en login de Google', err)
+      });
+  }
+
+//FACEBOOK
+  loggedFacebook(resp: fb.StatusResponse) {
+    const token = resp.authResponse?.accessToken;
+
+    if (token) {
+      this.#authService.loginFacebook(token)
+        .pipe(takeUntilDestroyed(this.#destroyRef))
+        .subscribe({
+          next: () => {
+            console.log('Login con Facebook correcto');
+            this.#router.navigate(['/properties']);
+          },
+          error: (err: unknown) => console.error('Error en login de Facebook', err)
+        });
+    } else {
+        console.error('No se recibió token de Facebook');
+    }
+  }
+
+  showError(error: string) {
+    console.error('Error:', error);
+  }
+  
+//LOGIN NORMAL
   login(event: Event) {
     event.preventDefault();
 

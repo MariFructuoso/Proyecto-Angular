@@ -59,9 +59,12 @@
       <!-- Campo de Avatar -->
       <div class="mb-8">
         <label for="avatar" class="block text-gray-700 font-bold mb-2">Avatar</label>
-        <input type="file" id="avatar" [formField]="avatarControl" encodeBase64
-          (encoded)="newRegisterForm.avatar().setControlValue($event)" accept="image/*"
-          class="w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+        <input type="file" 
+        id="avatar" 
+        [formField]="avatarControl" 
+        encodeBase64
+        (encoded)="newRegisterForm.avatar().setControlValue($event)" accept="image/*"
+        class="w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
         @for (error of newRegisterForm.avatar().errors(); track error.kind) {
         <div class="error-msg text-sm text-red-700">{{ error.message }}</div>
         }
