@@ -8,6 +8,7 @@ import { PreloadAllModules, provideRouter, withComponentInputBinding, withPreloa
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { baseUrlInterceptor } from './shared/interceptors/base-url-interceptor';
+import { authInterceptor } from './shared/interceptors/auth.interceptor';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
 import { provideGoogleId } from './auth/google-login/google-login.config';
 import { provideFacebookId } from './auth/fb-login/facebook-login.config';
@@ -23,7 +24,7 @@ export const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([baseUrlInterceptor])),
+    provideHttpClient(withInterceptors([baseUrlInterceptor, authInterceptor])),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes, withComponentInputBinding(), withPreloading(PreloadAllModules)),

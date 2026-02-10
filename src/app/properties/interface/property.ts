@@ -17,6 +17,7 @@ export interface Property extends Omit<PropertyInsert, 'townId'> {
   town: Town;
   createdAt: string;
   status: string;
+  mine?: boolean;
 }
 
 export interface PropertiesResponse {

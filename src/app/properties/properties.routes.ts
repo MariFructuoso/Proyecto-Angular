@@ -15,6 +15,13 @@ export const propertiesRoutes: Routes = [
     title: 'Add Inmosanvi | Angular Inmosanvi',
   },
   {
+    path: 'edit/:id',
+    canActivate: [numericIdGuard], 
+    canDeactivate: [leavePageGuard], 
+    loadComponent: () => import('./property-form/property-form').then((m) => m.PropertyForm), 
+    title: 'Edit Inmosanvi | Angular Inmosanvi',
+  },
+  {
     path: ':id',
     canActivate: [numericIdGuard],
     loadComponent: () => import('./property-detail/property-detail').then((m) => m.PropertyDetail),
