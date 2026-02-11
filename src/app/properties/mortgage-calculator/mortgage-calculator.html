@@ -1,0 +1,31 @@
+<div class="bg-white p-6 rounded-lg shadow-md">
+  <h3 class="text-xl font-bold text-gray-800 mb-4">Calculate Your Mortgage</h3>
+  <form class="space-y-4">
+    
+    <div>
+      <label for="price" class="block text-sm font-medium text-gray-700">Property price (€)</label>
+      <input id="price" type="number" [value]="price()" readonly class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none">
+    </div>
+
+    <div>
+      <label for="downPayment" class="block text-sm font-medium text-gray-700">Down payment (€)</label>
+      <input id="downPayment" type="number" [ngModel]="downPayment()" (ngModelChange)="downPayment.set($event)" name="downPayment" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <div>
+      <label for="years" class="block text-sm font-medium text-gray-700">Loan term (years)</label>
+      <input id="years" type="number" [(ngModel)]="years" name="years" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <div>
+      <label for="interest" class="block text-sm font-medium text-gray-700">Interest rate (%)</label>
+      <input id="interest" type="number" [(ngModel)]="interest" name="interest" step="0.01" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+  </form>
+
+  <div class="mt-6 border-t border-gray-200 pt-4 text-center">
+    <p class="text-gray-600">Approximate monthly payment:</p>
+    <p class="text-3xl font-bold text-gray-900">{{ monthlyPayment() | currency:'EUR' }}</p>
+  </div>
+</div>
