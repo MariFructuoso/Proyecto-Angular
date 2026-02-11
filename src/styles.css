@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@import "ol/ol.css";
+@import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 
 :is(input, textarea, select):not(.no-validation) {
     @apply border rounded-md;
@@ -15,4 +17,15 @@
     &:not(.ng-touched.ng-invalid)~.error-msg {
         @apply hidden;
     }
+}
+.autocomplete-container {
+  position: relative;
+}
+
+.geoapify-autocomplete-input {
+  border: none;
+}
+
+.geoapify-input-wrapper {
+  border: 1px #ddd solid;
 }

@@ -9,6 +9,6 @@ export const routes: Routes = [
     path: 'properties',
     loadChildren: () => import('./properties/properties.routes').then((m) => m.propertiesRoutes),
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/auth/login' },
 ];

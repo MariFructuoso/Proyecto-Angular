@@ -7,16 +7,20 @@ import { CurrencyPipe } from '@angular/common';
 
 import { MortgageCalculator } from '../mortgage-calculator/mortgage-calculator';
 import { PropertyComments } from '../property-comments/property-comments';
-import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
+
+import { OlMapDirective } from '../../shared/directives/ol-map.directive';
+import { OlMarkerDirective } from '../../shared/directives/ol-marker.directive';
+
 
 @Component({
   selector: 'property-detail',
   imports: [
-    RouterLink, 
-    CurrencyPipe, 
-    MortgageCalculator, 
-    PropertyComments, 
-    SafeUrlPipe
+    RouterLink,
+    CurrencyPipe,
+    MortgageCalculator,
+    PropertyComments,
+    OlMapDirective,    
+    OlMarkerDirective
   ],
   templateUrl: './property-detail.html',
   styleUrl: './property-detail.css',
@@ -26,14 +30,15 @@ export class PropertyDetail {
   id = input.required({ transform: numberAttribute });
   #productsService = inject(PropertiesService);
   #title = inject(Title);
+  #router = inject(Router);
   propertyResource = this.#productsService.getPropertytIdResource(this.id);
   property = computed(() => this.propertyResource.value()?.property);
-  #router = inject(Router);
 
-  mapUrl = computed(() => {
+  coordinates = computed<[number, number]>(() => {
     const p = this.property();
-    if (!p) return '';
-    return `https://maps.google.com/maps?q=${p.town.latitude},${p.town.longitude}&z=15&output=embed`;  });
+    if (!p) return [0, 0];
+    return [p.town.longitude, p.town.latitude];
+  });
 
   constructor() {
     effect(() => {
