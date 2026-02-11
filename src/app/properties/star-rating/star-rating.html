@@ -1,0 +1,23 @@
+<div class="flex" 
+     (mouseleave)="auxRating.set(rating())"
+     [class.pointer-events-none]="readonly()">
+
+  @for (star of [1, 2, 3, 4, 5]; track star) {
+    <svg 
+      role="button"
+      tabindex="0"
+      class="cursor-pointer focus:outline-none"
+      [class.text-yellow-400]="star <= auxRating()"
+      [class.text-gray-300]="star > auxRating()"
+      [class.w-5]="size() === 'small'" 
+      [class.h-5]="size() === 'small'"
+      [class.w-10]="size() === 'big'" 
+      [class.h-10]="size() === 'big'"
+      (mouseenter)="auxRating.set(star)"
+      (click)="rating.set(star)"
+      (keydown.enter)="rating.set(star)"
+    >
+      <use href="icons/star.svg#star"></use>
+    </svg>
+  }
+</div>

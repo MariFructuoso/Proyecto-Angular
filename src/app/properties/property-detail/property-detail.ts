@@ -11,6 +11,7 @@ import { PropertyComments } from '../property-comments/property-comments';
 import { OlMapDirective } from '../../shared/directives/ol-map.directive';
 import { OlMarkerDirective } from '../../shared/directives/ol-marker.directive';
 
+import { StarRating } from '../star-rating/star-rating';
 
 @Component({
   selector: 'property-detail',
@@ -20,7 +21,8 @@ import { OlMarkerDirective } from '../../shared/directives/ol-marker.directive';
     MortgageCalculator,
     PropertyComments,
     OlMapDirective,    
-    OlMarkerDirective
+    OlMarkerDirective,
+    StarRating
   ],
   templateUrl: './property-detail.html',
   styleUrl: './property-detail.css',

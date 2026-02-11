@@ -1,6 +1,41 @@
 <section>
   <h2 class="text-2xl font-bold text-gray-800 mb-6">Ratings and Comments</h2>
   <div class="bg-white p-8 rounded-lg shadow-md">
-    <p class="text-gray-500">Comments section coming soon...</p>
+    <div class="mb-8 border-b border-gray-200 pb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Write your opinion</h3>
+      <form (ngSubmit)="addComment()" class="space-y-6">
+        <div>
+          <span class="block text-gray-700 font-bold mb-2">Your rating</span>
+          <star-rating [(rating)]="newRating" size="big"></star-rating>
+        </div>
+        <div>
+          <label for="comment" class="block text-gray-700 font-bold mb-2">Comment</label>
+          <textarea id="comment" [(ngModel)]="newComment" name="comment" rows="4"
+            class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Describe your experience...">
+          </textarea>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600">
+          Publish review
+        </button>
+      </form>
+    </div>
+    <div class="space-y-6">
+      @if (comments().length === 0) {
+      <p class="text-gray-500 italic">No reviews yet. Be the first!</p>
+      }
+      @for (comment of comments(); track comment.text) {
+      <div class="flex gap-4 items-start border-b border-gray-100 pb-6">
+        <img src="/public/unknown.png" alt="User avatar" class="w-12 h-12 rounded-full object-cover">
+        <div>
+          <div class="flex items-center gap-2">
+            <h4 class="font-bold text-gray-800">{{ comment.user.name }}</h4>
+          </div>
+          <star-rating [rating]="comment.rating" [readonly]="true" size="small"></star-rating>
+          <p class="text-gray-600 mt-2">{{ comment.text }}</p>
+        </div>
+      </div>
+      }
+    </div>
   </div>
 </section>
