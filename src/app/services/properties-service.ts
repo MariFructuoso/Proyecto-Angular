@@ -10,7 +10,6 @@ import { Comment } from '../properties/interface/comment';
 })
 export class PropertiesService {
   #propertiesUrl = 'properties'; 
-  #commentsUrl = 'comments';     
   #http = inject(HttpClient);
 
   getProperties(page: Signal<number>, search: Signal<string>, province: Signal<string>) {
@@ -41,18 +40,27 @@ export class PropertiesService {
     return this.#http.delete<void>(`${this.#propertiesUrl}/${id}`);
   }
 
-  getComments(id: number): Observable<Comment[]> {
-    return this.#http.get<Comment[]>(`${this.#commentsUrl}?propertyId=${id}`);
+  getComments(propertyId: number): Observable<Comment[]> {
+    return this.#http.get<Comment[]>(`${this.#propertiesUrl}/${propertyId}/ratings`);
   }
 
-  postComment(id: number, text: string, rating: number): Observable<Comment> {
-    const newComment = {
-        propertyId: id,
-        description: text, 
+  postComment(propertyId: number, comment: string, rating: number): Observable<Comment> {
+    const payload = {
         rating: rating,
-        user: "User", 
-        date: new Date().toISOString()
+        comment: comment
     };
-    return this.#http.post<Comment>(this.#commentsUrl, newComment);
+    return this.#http.post<Comment>(`${this.#propertiesUrl}/${propertyId}/ratings`, payload);
+  }
+
+  getProperty(id: number): Observable<Property> {
+    return this.#http.get<SinglePropertyResponse>(`${this.#propertiesUrl}/${id}`).pipe(
+      map((resp) => resp.property)
+    );
+  }
+
+  saveProperty(property: Property): Observable<Property> {
+    return this.#http.put<SinglePropertyResponse>(`${this.#propertiesUrl}/${property.id}`, property).pipe(
+      map((resp) => resp.property)
+    );
   }
 }

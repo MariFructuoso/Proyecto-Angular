@@ -9,6 +9,12 @@ export const routes: Routes = [
     path: 'properties',
     loadChildren: () => import('./properties/properties.routes').then((m) => m.propertiesRoutes),
   },
+  
+  {
+    path: 'properties/edit/:id',
+    loadComponent: () => import('./properties/property-form/property-form').then(m => m.PropertyForm)
+  },
+
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/auth/login' },
 ];
