@@ -11,3 +11,11 @@ export interface UserRegister extends UserLogin {
 export interface AuthResponse {
   accessToken: string;
 }
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  avatar?: string; 
+  me?: boolean;    
+}

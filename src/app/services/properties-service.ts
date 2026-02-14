@@ -12,12 +12,18 @@ export class PropertiesService {
   #propertiesUrl = 'properties'; 
   #http = inject(HttpClient);
 
-  getProperties(page: Signal<number>, search: Signal<string>, province: Signal<string>) {
+  getProperties(page: Signal<number>, search: Signal<string>, province: Signal<string>, seller: Signal<string | undefined>) {
     return httpResource<PropertiesResponse>(() => {
       const params = new URLSearchParams();
       params.set('page', page().toString());
       if (search()) params.set('search', search()); 
       if (province()) params.set('province', province()); 
+      
+      const sellerId = seller();
+      if (sellerId && sellerId !== '0') {
+          params.set('sellerId', sellerId);
+      }
+
       return `properties?${params.toString()}`;
     }, {
       defaultValue: { properties: [] }
